@@ -27,14 +27,14 @@ First create an OAuth2-aware WebClient:
 @Configuration
 public class WebClientConfig {
 
-	@Bean
-	WebClient webClient(ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientRepository authorizedClientRepository) {
-		ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, authorizedClientRepository);
-		oauth2.setDefaultOAuth2AuthorizedClient(true);
-		return WebClient.builder()
-				.apply(oauth2.oauth2Configuration())
-				.build();
-	}
+  @Bean
+  WebClient webClient(ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientRepository authorizedClientRepository) {
+    ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 = new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, authorizedClientRepository);
+    oauth2.setDefaultOAuth2AuthorizedClient(true);
+    return WebClient.builder()
+        .apply(oauth2.oauth2Configuration())
+        .build();
+  }
 }
 {% endhighlight %}
 
@@ -44,25 +44,25 @@ Create a custom `WebClientHttpInvokerRequestExecutor` that will send your reques
 
 public class WebClientHttpInvokerRequestExecutor extends AbstractHttpInvokerRequestExecutor {
 
-	private final WebClient webClient;
+  private final WebClient webClient;
 
-	public WebClientHttpInvokerRequestExecutor(WebClient webClient) {
-		this.webClient = webClient;
-	}
+  public WebClientHttpInvokerRequestExecutor(WebClient webClient) {
+    this.webClient = webClient;
+  }
 
-	@Override
-	protected RemoteInvocationResult doExecuteRequest(HttpInvokerClientConfiguration config, ByteArrayOutputStream baos) throws IOException, ClassNotFoundException {
-		InputStreamResource inputStreamResource = this.webClient
-				.post()
-				.uri(config.getServiceUrl())
-				.header(HTTP_HEADER_CONTENT_TYPE, CONTENT_TYPE_SERIALIZED_OBJECT)
-				.syncBody(new ByteArrayResource(baos.toByteArray()))
-				.exchange()
-				.flatMap(response -> response.bodyToMono(InputStreamResource.class))
-				.block();
+  @Override
+  protected RemoteInvocationResult doExecuteRequest(HttpInvokerClientConfiguration config, ByteArrayOutputStream baos) throws IOException, ClassNotFoundException {
+    InputStreamResource inputStreamResource = this.webClient
+        .post()
+        .uri(config.getServiceUrl())
+        .header(HTTP_HEADER_CONTENT_TYPE, CONTENT_TYPE_SERIALIZED_OBJECT)
+        .syncBody(new ByteArrayResource(baos.toByteArray()))
+        .exchange()
+        .flatMap(response -> response.bodyToMono(InputStreamResource.class))
+        .block();
 
-		return readRemoteInvocationResult(inputStreamResource.getInputStream(), config.getCodebaseUrl());
-	}
+    return readRemoteInvocationResult(inputStreamResource.getInputStream(), config.getCodebaseUrl());
+  }
 }
 
 {% endhighlight %}
@@ -74,18 +74,18 @@ Ensure your security configuration uses Spring Security's OAuth2 Client and uses
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-				.anyRequest().authenticated()
-				.and()
-			.formLogin()
-				.and()
-			.oauth2Login()
-				.and()
-			.oauth2Client();
-	}
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+      .authorizeRequests()
+        .anyRequest().authenticated()
+        .and()
+      .formLogin()
+        .and()
+      .oauth2Login()
+        .and()
+      .oauth2Client();
+  }
 }
 
 {% endhighlight %}
@@ -96,16 +96,16 @@ To use our WebClientHttpInvokerRequestExecutor, hook it up to HttpInvokerProxyFa
 
 @Bean
 public HttpInvokerProxyFactoryBean invoker(HttpInvokerRequestExecutor httpInvokerRequestExecutor) {
-	HttpInvokerProxyFactoryBean invoker = new HttpInvokerProxyFactoryBean();
-	invoker.setServiceUrl("http://localhost:8080/booking");
-	invoker.setServiceInterface(CabBookingService.class);
-	invoker.setHttpInvokerRequestExecutor(httpInvokerRequestExecutor);
-	return invoker;
+  HttpInvokerProxyFactoryBean invoker = new HttpInvokerProxyFactoryBean();
+  invoker.setServiceUrl("http://localhost:8080/booking");
+  invoker.setServiceInterface(CabBookingService.class);
+  invoker.setHttpInvokerRequestExecutor(httpInvokerRequestExecutor);
+  return invoker;
 }
 
 @Bean
 public HttpInvokerRequestExecutor httpInvokerRequestExecutor(WebClient webClient) {
-	return new WebClientHttpInvokerRequestExecutor(webClient);
+  return new WebClientHttpInvokerRequestExecutor(webClient);
 }
 
 {% endhighlight %}
