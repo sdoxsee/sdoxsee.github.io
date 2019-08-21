@@ -88,17 +88,38 @@ defaults:
 
 # Site Author
 author:
-  name:
-  picture:
+  name: Stephen Doxsee
+  picture: /assets/images/stephen.jpg
   email:
-  twitter:
+  twitter: doxsees
   links:
-    - title:
-      url:
-      icon:
+    - title: Twitter
+      url: https://twitter.com/doxsees
+      icon: fab fa-twitter-square
+    # - title: Instagram
+    #   url: https://instagram.com/sdoxsee
+    #   icon: fab fa-instagram
+    - title: LinkedIn
+      url: https://www.linkedin.com/in/stephen-doxsee-3b432243
+      icon: fab fa-linkedin
+    - title: GitHub
+      url: https://github.com/sdoxsee
+      icon: fab fa-github-square
 
 # Footer Links
 footer_links:
+  - title: Twitter
+    url: https://twitter.com/doxsees
+    icon: fab fa-twitter-square
+  # - title: Instagram
+  #   url: https://instagram.com/sdoxsee
+  #   icon: fab fa-instagram
+  - title: LinkedIn
+    url: https://www.linkedin.com/in/stephen-doxsee-3b432243
+    icon: fab fa-linkedin    
+  - title: GitHub
+    url: https://github.com/sdoxsee
+    icon: fab fa-github-square
   - title: Feed
     url: atom.xml
     icon: fas fa-rss-square
