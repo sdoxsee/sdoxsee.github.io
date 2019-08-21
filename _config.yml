@@ -17,11 +17,11 @@
 exclude: [example/]
 remote_theme: mmistakes/so-simple-theme
 locale: en-US
-title: "My Awesome Site"
-description: "It really is the best."
+title: "Stephen Doxsee's Blog"
+description: "Technical musings behind the work of <a href='https://simplestep.ca'>Simple Step Solutions</a>."
 baseurl: # the subpath of your site, e.g. "/blog"
 url: https://sdoxsee.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-logo: # path of site logo, e.g. "/images/logo.png"
+logo: /assets/images/logo.svg # path of site logo, e.g. "/images/logo.png"
 date_format: "%B %-d, %Y"
 read_time: # reading time estimates, e.g. true
 words_per_minute: # 200
@@ -31,11 +31,11 @@ google_fonts:
     weights: "400,400i,700,700i"
   - name: "Lora"
     weights: "400,400i,700,700i"
-google_analytics: # Google Analytics id, e.g. "UA-NNNNNNNN-N"
+google_analytics: UA-135067862-1 # Google Analytics id, e.g. "UA-NNNNNNNN-N"
 disqus:
-  shortname: # Disqus shortname, e.g. "my_disqus_shortname"
+  shortname: sdoxsee-github-io # Disqus shortname, e.g. "my_disqus_shortname"
 twitter:
-  username: # site's Twitter username, e.g. "mmistakes"
+  username: doxsees # site's Twitter username, e.g. "mmistakes"
 
 # Liquid
 liquid:
