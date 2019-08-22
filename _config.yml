@@ -75,6 +75,10 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-redirect-from
+
+whitelist:
+  - jekyll-redirect-from
 
 # Front Matter Defaults
 defaults:
