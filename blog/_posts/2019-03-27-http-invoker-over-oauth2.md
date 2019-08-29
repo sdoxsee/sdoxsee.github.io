@@ -2,10 +2,10 @@
 layout: post
 title:  "HttpInvoker over OAuth2 with Spring Boot 2.2"
 # author: stephen
-categories: [ OAuth2, Spring Security, Spring Framework, RMI, Swing ]
+tags: [ OAuth2, Spring Security, Spring Framework, RMI, Swing ]
 # image: assets/images/oauth2-logo.jpg
 featured: true
-redirect_to: https://simplestep.ca/oauth2/spring%20security/spring%20framework/rmi/swing/2019/03/27/http-invoker-over-oauth2.html
+# redirect_to: https://simplestep.ca/oauth2/spring%20security/spring%20framework/rmi/swing/2019/03/27/http-invoker-over-oauth2.html
 ---
 Ok, so [`HttpInvoker`](https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#remoting-httpinvoker) may not be the what the hipsters are using (it's been around since 2003 or so) but there are still plenty of Java desktop applications out there communicating over RMI or EJB that could use a security boost by using OAuth2.
 
