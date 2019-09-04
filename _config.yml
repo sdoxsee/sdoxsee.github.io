@@ -103,6 +103,9 @@ author:
     # - title: Instagram
     #   url: https://instagram.com/sdoxsee
     #   icon: fab fa-instagram
+    - title: Stack Overflow
+      url: https://stackoverflow.com/users/1098564/sdoxsee
+      icon: fab fa-stack-overflow    
     - title: LinkedIn
       url: https://www.linkedin.com/in/stephen-doxsee-3b432243
       icon: fab fa-linkedin
@@ -118,6 +121,9 @@ footer_links:
   # - title: Instagram
   #   url: https://instagram.com/sdoxsee
   #   icon: fab fa-instagram
+  - title: Stack Overflow
+    url: https://stackoverflow.com/users/1098564/sdoxsee
+    icon: fab fa-stack-overflow    
   - title: LinkedIn
     url: https://www.linkedin.com/in/stephen-doxsee-3b432243
     icon: fab fa-linkedin    
