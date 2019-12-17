@@ -1,21 +1,25 @@
 ---
 layout: post
-title:  "Part 1: 'Confidential Notes' OAuth2 Resource Server with Webflux and R2DBC"
+title:  "Merry Microservices: Part 1 'Resource Server'--An OAuth2 Resource Server with Webflux and R2DBC"
 author: stephen
 tags: [ OAuth2, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices ]
 # image: assets/images/logo-jhipster.svg
 featured: true
 ---
 
-{% include toc %}
-
-# Introduction
-
-This is Part 1 of the series "Reactive Full Stack Policy-Driven Microservices with Spring Boot and React"
+This is Part 1 of the series "[Merry Microservices](/blog/2019/12/17/merry-microservices-an-introduction)"
 
 We'll be introduction a simple confidential note OAuth2 resource server with Spring Boot Webflux, and Spring Data R2DBC.
 
-The source can be found on [github](https://github.com/sdoxsee/confidential-notes).
+The source can be found on [github](https://github.com/sdoxsee/merry-microservices-resource-server).
+
+<img border="0" src="/assets/images/holly-ivy.svg" width="19%"/>
+<img border="0" src="/assets/images/candy-cane.svg" width="19%"/>
+<img border="0" src="/assets/images/tree.svg" width="19%"/>
+<img border="0" src="/assets/images/gift.svg" width="19%"/>
+<img border="0" src="/assets/images/wreath.svg" width="19%"/>
+
+{% include toc %}
 
 # Generate the project
 
@@ -23,7 +27,7 @@ Let's go to [start.spring.io](https://start.spring.io/#!type=maven-project&langu
 
 Dependencies? `webflux,data-r2dbc,h2,oauth2-resource-server`
 
-![start.spring.io](/assets/images/2019-12-16/start.spring.io.png)
+![start.spring.io](/assets/images/2019-12-18/start.spring.io.png)
 
 We won't be changing the `pom.xml` from `start.spring.io` but I do want to point out that one of our dependencies is currently experimental:
 * `spring-boot-starter-data-r2dbc` -- allows for the autoconfiguration of our reactive datasource
@@ -250,7 +254,7 @@ Once your app is up and running, head over to your favourite http tool to start 
 
 Create a note using a `POST` to `http://localhost:8081/api/notes` with the a JSON body as follows:
 
-![postman-json-body](/assets/images/2019-12-16/postman-json-body.png)
+![postman-json-body](/assets/images/2019-12-18/postman-json-body.png)
 
 {% highlight json %}
 {
@@ -261,22 +265,40 @@ Create a note using a `POST` to `http://localhost:8081/api/notes` with the a JSO
 
 Go to your Authorization section, click the "Get New Access Token" button, and fill in the OAuth2 configuration for your identity provider. Our configuration is as follows:
 
-![postman-oauth-config](/assets/images/2019-12-16/postman-oauth-config.png)
+**Tip**: If you you need to look up the endpoints, use the [discovery endpoint](http://localhost:9080/auth/realms/jhipster/.well-known/openid-configuration) as your guide
+{: .notice}
+
+![postman-oauth-config](/assets/images/2019-12-18/postman-oauth-config.png)
 
 Request the token, use the token, and then "Send" your request. You should see a 201 response for your newly created note.
 
 ## Get the note back using Postman
 
-Similar to creating a note, we can change our HTTP Method to `GET`, get an access token as before, and "Send" the request. We should see a 200 response containing the note we created earlier.
+Similar to creating a note, we can change our HTTP Method to `GET` at the same endpoint, `http://localhost:8081/api/notes`, get an access token as before, and "Send" the request. We should see a 200 response containing the note we created earlier that looks something like this:
+
+{% highlight json %}
+[
+    {
+        "id": 1,
+        "text": "Here's a confidential note",
+        "confidential": true
+    }
+]
+{% endhighlight %}
 
 # Conclusion
 
 So now, we've got a fully reactive OAuth2 Resource Server built with Spring Boot Webflux app and R2DBC. 
 
-Next time (Part 2), we'll create a gateway application with React and Spring Cloud Gateway (Webflux) that will 
-1. Serve up our create-react-app CRUD application with a great development experience
+Next time (in [Part 2](https://sdoxsee.github.com/blog/2019/12/17/merry-microservices-part2-ui-gateway)), we'll create a gateway application with React ([Create React App](https://github.com/facebook/create-react-app)) and Spring Cloud Gateway (with Webflux) that will 
+1. Serve up our React CRUD application with a great development experience
 2. Manage all the OAuth2 and OpenID Connect token flows automatically and safely with Spring Security 5.2.x and relay the access tokens to our note service
 
 Let me know what you think in the comments section.
 
 Thanks for reading! 
+
+Please **follow me** on [twitter](https://twitter.com/doxsees) or [subscribe](/atom.xml) to be updated as each part of this series comes out. 
+{: .notice}
+
+If you'd like help with any of these things, find out how what I do and how you can **hire me** at [Simple Step Solutions](https://simplestep.ca)
