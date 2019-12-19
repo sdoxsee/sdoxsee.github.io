@@ -129,7 +129,7 @@ Since our `/api/user` call is async, we put it in an `async` function, `runAsync
 
 Next we want to hide the UI if we are not authenticated and show a login or logout button depending if the value of `isAuthenticated` is `false` or `true` respectively
 
-```
+{% highlight tsx %}
 const App = () => {
   // ...
   const login = () => {
@@ -157,7 +157,7 @@ const App = () => {
     </Container>    
   )
 }
-```
+{% endhighlight %}
 
 In the above tsx code, we define a `login` function that, when we click the login button, we get redirected to `/private`. The purpose of this is to hit a secured server-side endpoint that will force authentication with the configured Identity Provider, Keycloak in our case. For our logout button, we put it in a form that submits a `POST` to `/logout` and include a hidden input named `_csrf` with the value from a cookie named `XSRF_TOKEN`. We're now getting to the point where we need to jump to the server-side to understand what's going on. 
 
