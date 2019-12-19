@@ -21,6 +21,12 @@ The source can be found on github at [https://github.com/sdoxsee/merry-microserv
 
 {% include toc %}
 
+# Preamble
+
+I've spent most of my career doing Java development--especially with the Spring Framework. Java gets a fair bit of hate--some of it is merited while much of it is [myth](https://developer.okta.com/blog/2019/07/15/java-myths-2019). Personally, I love it. One downside, however, is that it tends to use a lot of memory; traditional blocking architectures and thread pools at scale really bring this to light. 
+
+With Spring Webflux, the Spring Framework has been re-architected on [Project Reactor](https://projectreactor.io/) and [Netty](https://netty.io/) to bring about more asynchronous, event-driven, non-blocking applications (i.e. "Reactive"). Spring Webflux has some advantages over Spring MVC including more efficient resource utilization (i.e. less threads => less memory). Those lead to cheaper cloud costs and more robust services. I like that. I find it hard to justify the resource requirements for the excessive threads in Spring MVC but, since I still love Java, Spring Webflux makes "Java in the cloud" much more palatable. It also can leverage the awesome autoconfiguration features of Spring Boot that can make it super-easy to use. Webflux has some limitations (e.g. lack of non-blocking libraries, etc.) and differences from the very support-rich servlet-based stack but we'll see that it's pretty cool!
+
 # Generate the project
 
 Let's go to [start.spring.io](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.2.RELEASE&packaging=jar&jvmVersion=1.8&groupId=ca.simplstep&artifactId=note&name=note&description=Demo%20project%20for%20Spring%20Boot&packageName=ca.simplstep.note&dependencies=webflux,data-r2dbc,h2,oauth2-resource-server) and generate our note.zip
@@ -290,7 +296,7 @@ Similar to creating a note, we can change our HTTP Method to `GET` at the same e
 
 So now, we've got a fully reactive OAuth2 Resource Server built with Spring Boot Webflux app and R2DBC. 
 
-Next time (in [Part 2](https://sdoxsee.github.com/blog/2019/12/17/merry-microservices-part2-ui-gateway)), we'll create a gateway application with React ([Create React App](https://github.com/facebook/create-react-app)) and Spring Cloud Gateway (with Webflux) that will 
+Next time (in [Part 2](/blog/2019/12/17/merry-microservices-part2-ui-gateway)), we'll create a gateway application with React ([Create React App](https://github.com/facebook/create-react-app)) and Spring Cloud Gateway (with Webflux) that will 
 1. Serve up our React CRUD application with a great development experience
 2. Manage all the OAuth2 and OpenID Connect token flows automatically and safely with Spring Security 5.2.x and relay the access tokens to our note service
 
