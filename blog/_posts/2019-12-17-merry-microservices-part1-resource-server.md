@@ -11,13 +11,13 @@ This is Part 1 of the series "[Merry Microservices](/blog/2019/12/17/merry-micro
 
 We'll be introduction a simple confidential note OAuth2 resource server with Spring Boot Webflux, and Spring Data R2DBC.
 
-The source can be found on [github](https://github.com/sdoxsee/merry-microservices-resource-server).
+The source can be found on github at [https://github.com/sdoxsee/merry-microservices-note](https://github.com/sdoxsee/merry-microservices-note).
 
-<img border="0" src="/assets/images/holly-ivy.svg" width="19%"/>
-<img border="0" src="/assets/images/candy-cane.svg" width="19%"/>
-<img border="0" src="/assets/images/tree.svg" width="19%"/>
-<img border="0" src="/assets/images/gift.svg" width="19%"/>
-<img border="0" src="/assets/images/wreath.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/holly-ivy.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/candy-cane.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/tree.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/wreath.svg" width="19%"/>
 
 {% include toc %}
 
@@ -27,7 +27,7 @@ Let's go to [start.spring.io](https://start.spring.io/#!type=maven-project&langu
 
 Dependencies? `webflux,data-r2dbc,h2,oauth2-resource-server`
 
-![start.spring.io](/assets/images/2019-12-18/start.spring.io.png)
+![start.spring.io](/assets/images/merry-microservices/part1/start.spring.io.png)
 
 We won't be changing the `pom.xml` from `start.spring.io` but I do want to point out that one of our dependencies is currently experimental:
 * `spring-boot-starter-data-r2dbc` -- allows for the autoconfiguration of our reactive datasource
@@ -254,7 +254,7 @@ Once your app is up and running, head over to your favourite http tool to start 
 
 Create a note using a `POST` to `http://localhost:8081/api/notes` with the a JSON body as follows:
 
-![postman-json-body](/assets/images/2019-12-18/postman-json-body.png)
+![postman-json-body](/assets/images/merry-microservices/part1/postman-json-body.png)
 
 {% highlight json %}
 {
@@ -268,7 +268,7 @@ Go to your Authorization section, click the "Get New Access Token" button, and f
 **Tip**: If you you need to look up the endpoints, use the [discovery endpoint](http://localhost:9080/auth/realms/jhipster/.well-known/openid-configuration) as your guide
 {: .notice}
 
-![postman-oauth-config](/assets/images/2019-12-18/postman-oauth-config.png)
+![postman-oauth-config](/assets/images/merry-microservices/part1/postman-oauth-config.png)
 
 Request the token, use the token, and then "Send" your request. You should see a 201 response for your newly created note.
 

@@ -9,11 +9,11 @@ featured: true
 
 This is Part 4 of the series "[Merry Microservices](/blog/2019/12/17/merry-microservices-an-introduction)"
 
-<img border="0" src="/assets/images/holly-ivy.svg" width="19%"/>
-<img border="0" src="/assets/images/candy-cane.svg" width="19%"/>
-<img border="0" src="/assets/images/tree.svg" width="19%"/>
-<img border="0" src="/assets/images/gift.svg" width="19%"/>
-<img border="0" src="/assets/images/wreath.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/holly-ivy.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/candy-cane.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/tree.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/wreath.svg" width="19%"/>
 
 <!-- {% include toc %} -->
 
