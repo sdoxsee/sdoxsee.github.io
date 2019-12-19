@@ -194,11 +194,6 @@ spring:
 Above we define a `provider` that we call `keycloak` whose meta information (i.e. endpoints, supported features, etc.) can be found at the `issuer-uri`. It's called the `discovery endpoint` and, once Keycloak has started up, you can check it out yourself at [http://localhost:9080/auth/realms/jhipster/.well-known/openid-configuration](http://localhost:9080/auth/realms/jhipster/.well-known/openid-configuration).
 
 In the `registration` section, we name our client `login-client` and link it to our `keycloak` provider. Out Keycloak realm has been pre-setup with a client that has the client id `web_app` and client secret `web_app`. Of course you'll change the client secret in your hosted environments! Finally, we request four scopes `openid,profile,email` so that Keycloak will allow us to get user information and, most importantly, an `id_token` AND an `access_token` for authentication and authorization respectively. 
-<!-- `offline_access` means that we'll get back a `refresh_token` as well as the other two tokens. Spring Security will automatically refresh our access tokens and, indirectly, our session. Otherwise we'll get 401 errors in the browser like this one on a `GET` to `/api/notes` -->
-
-```
-www-authenticate: Bearer error="invalid_token", error_description="Jwt expired at 2019-12-19T02:34:14Z", error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
-```
 
 ### Spring Security configuration
 
