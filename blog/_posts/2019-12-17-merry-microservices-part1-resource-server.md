@@ -13,11 +13,11 @@ We'll be introduction a simple confidential note OAuth2 resource server with Spr
 
 The source can be found on github at [https://github.com/sdoxsee/merry-microservices-note](https://github.com/sdoxsee/merry-microservices-note).
 
-<img border="0" src="/assets/images/merry-microservices/holly-ivy.svg" width="19%"/>
-<img border="0" src="/assets/images/merry-microservices/candy-cane.svg" width="19%"/>
-<img border="0" src="/assets/images/merry-microservices/tree.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
-<img border="0" src="/assets/images/merry-microservices/wreath.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/gift3.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
+<img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
 
 {% include toc %}
 
