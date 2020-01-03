@@ -3,8 +3,11 @@ layout: post
 title:  "Stop overloading JWTs with permission claims"
 author: stephen
 tags: [OAuth2, JWT, OpenID Connect, Authorization, Permissions, Roles, Identity]
-image: assets/images/2019-12-24/overloaded-truck.jpg
-featured: false
+image: 
+  path: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Truck_in_India_-_overloaded.jpg/1280px-Truck_in_India_-_overloaded.jpg
+  thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Truck_in_India_-_overloaded.jpg/640px-Truck_in_India_-_overloaded.jpg
+  caption: "Photo from [Wikimedia](https://commons.wikimedia.org/wiki/File:Truck_in_India_-_overloaded.jpg)"
+featured: true
 ---
 
 Really. Don't do it.
