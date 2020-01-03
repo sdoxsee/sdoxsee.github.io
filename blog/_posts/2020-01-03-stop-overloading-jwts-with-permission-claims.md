@@ -9,6 +9,8 @@ featured: false
 
 Really. Don't do it.
 
+{% include toc %}
+
 # TL;DR  
 
 The authorization that OAuth2 provides is really a subset of true authorization. OAuth2 deals with what I call "**identity authorization**". I think that we've often misunderstood this by trying to make OAuth2 do more authorization than it's supposed to by customizing JWT access tokens (that should be about "identity") with application-specific roles and permissions that really shouldn't be there.
@@ -32,7 +34,7 @@ OIDC and OAuth2 are very related. You don't need OIDC for authentication. Facebo
 
 # The evolution of JWT access tokens
 
-Now, OIDC introduced JWTs for their ID Token but, soon, applications began using JWTs for their access tokens as well. Even though the OAuth2 spec never even had JWTs in view, JWTs have the advantage that they let us verify the token without having to go back to the authorization server--as we must for opaque tokens. I believe JWTs have become so popular because we don't have to take the performance hit of continually going to another server to validate them and allows us to know who a request was made on behalf of, without having to keep session state on your server. We pack the access tokens with "claims" about the user's identity and the scopes they've granted to the client application. Over time, however, we've packed more and more into those JWTs--including application roles and permissions. 
+Now, OIDC introduced JWTs for their ID Token but, soon, applications began using JWTs for their access tokens as well. Even though the OAuth2 spec never even had JWTs in view, JWTs have the advantage that they let us verify the token without having to go back to the authorization server--as we _must_ for opaque tokens. I believe JWTs have become so popular because we don't have to take the performance hit of continually going to another server to validate them and allows us to know who a request was made on behalf of, without having to keep session state on your server. We pack the access tokens with "claims" about the user's identity and the scopes they've granted to the client application. Over time, however, we've packed more and more into those JWTs--including application roles and permissions. 
 
 **Note**: There's a case to be made for "identity roles" as opposed to "application roles" being present in JWTs. Identity roles would be those roles that apply throughout the entire universe of services you have. In fact, they allow simple mappings from identity roles to application roles if needed so that you don't have to explicitly handle mappings for each user. However, the concept of "identity roles" seems a bit short-sighted since a so-called "identity role" may cease to apply when the next service is incepted.
 {: .notice}
