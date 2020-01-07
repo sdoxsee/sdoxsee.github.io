@@ -9,13 +9,13 @@ featured: true
 
 This is Part 2 of the series "[Merry Microservices](/blog/2019/12/17/merry-microservices-an-introduction)"
 
+The source can be found on github at [https://github.com/sdoxsee/merry-microservices-gateway](https://github.com/sdoxsee/merry-microservices-gateway).
+
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift3.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
-
-The source can be found on github at [https://github.com/sdoxsee/merry-microservices-gateway](https://github.com/sdoxsee/merry-microservices-gateway).
 
 {% include toc %}
 

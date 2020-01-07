@@ -9,7 +9,7 @@ featured: true
 
 This is Part 1 of the series "[Merry Microservices](/blog/2019/12/17/merry-microservices-an-introduction)"
 
-We'll be introduction a simple confidential note OAuth2 resource server with Spring Boot Webflux, and Spring Data R2DBC.
+We'll be introducing a simple confidential note OAuth2 resource server with Spring Boot Webflux, and Spring Data R2DBC.
 
 The source can be found on github at [https://github.com/sdoxsee/merry-microservices-note](https://github.com/sdoxsee/merry-microservices-note).
 

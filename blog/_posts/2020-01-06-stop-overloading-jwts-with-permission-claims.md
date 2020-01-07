@@ -10,13 +10,13 @@ image:
 featured: true
 ---
 
-Really. Don't do it.
+Here's why...
 
 {% include toc %}
 
 # TL;DR  
 
-The authorization that OAuth2 provides is really a subset of true authorization. OAuth2 deals with what I call "**identity authorization**". I think that we've often misunderstood this by trying to make OAuth2 do more authorization than it's supposed to by customizing JWT access tokens (that should be about "identity") with application-specific roles and permissions that really shouldn't be there.
+The authorization that OAuth2 provides is likely a subset of all the authorization you need. OAuth2 deals with what I call "**identity authorization**". I think that we've often misunderstood authorization by trying to make OAuth2 do more authorization than it's supposed to by customizing JWT access tokens (that should be about "identity") with application-specific role and permission claims that don't belong there.
 
 # Authentication and authorizaion
 
@@ -37,7 +37,7 @@ OIDC and OAuth2 are very related. You don't need OIDC for authentication. Facebo
 
 # The evolution of JWT access tokens
 
-Now, OIDC introduced JWTs for their ID Token but, soon, applications began using JWTs for their access tokens as well. Even though the OAuth2 spec never even had JWTs in view, JWTs have the advantage that they let us verify the token without having to go back to the authorization server--as we _must_ for opaque tokens. I believe JWTs have become so popular because we don't have to take the performance hit of continually going to another server to validate them and allows us to know who a request was made on behalf of, without having to keep session state on your server. We pack the access tokens with "claims" about the user's identity and the scopes they've granted to the client application. Over time, however, we've packed more and more into those JWTs--including application roles and permissions. 
+OIDC introduced JWTs for their ID Token but, soon, applications began using JWTs for their access tokens as well. Even though the OAuth2 spec never even had JWTs in view, JWTs have the advantage that they let us verify the token without having to go back to the authorization server--as we _must_ for opaque tokens. I believe JWTs have become so popular because we don't have to take the performance hit of continually going to another server to validate them and allows us to know who a request was made on behalf of, without having to keep session state on your server. We pack the access tokens with "claims" about the user's identity and the scopes they've granted to the client application. Over time, however, we've packed more and more into those JWTs--including application roles and permissions. 
 
 **Note**: There's a case to be made for "identity roles" as opposed to "application roles" being present in JWTs. Identity roles would be those roles that apply throughout the entire universe of services you have. In fact, they allow simple mappings from identity roles to application roles if needed so that you don't have to explicitly handle mappings for each user. However, the concept of "identity roles" seems a bit short-sighted since a so-called "identity role" may cease to apply when the next service is incepted.
 {: .notice}
@@ -48,14 +48,14 @@ In adding application roles and permissions to our tokens, we've conflated ident
 
 # Consequenses of identity and permission conflation in JWTs
 
-When we go beyond identity in our access tokens, we're making them into something for which they aren't intended and reap the consequences of doing so. Even if you "namespace" your roles and permissions to specific applications in your JWT payload, there are still problems. Some of these include:
+When we go beyond identity in our access tokens, we're making them into something for which they were not intended and reap the consequences of doing so. Some problems of adding permission claims include:
 * loss of on-demand access control and permission changes until access token expires
 * large JWT payloads
 * customizations to or reliance on Identity Providers that lock you in to their products
-* loss of single responsibility
+* loss of single responsibility (i.e. Identity Provider also dealing with application permissions)
 * wrangling of resource server frameworks and libraries to parse and handle custom JWT claims.
 
-Here's a sample fragment from a decoded JWT with "identity roles" under `roles` and namespaced "application roles" under `resource_access` for the different application audiences of the token `account`, `client-a`, `resource-b`:
+Even if you "namespace" your roles and permissions to specific applications in your JWT payload, there are still problems. Here's a sample fragment from a decoded JWT with "identity roles" under `roles` and namespaced "application roles" under `resource_access` for the different application audiences of the token `account`, `client-a`, `resource-b`:
 
 {% highlight json %}
 
@@ -89,7 +89,7 @@ Here's a sample fragment from a decoded JWT with "identity roles" under `roles` 
 
 {% endhighlight %}
 
-While you can overload the JWT at the Identity Provider by namespacing application roles as we see in the above JWT fragment, it has all the drawbacks we mentioned earlier. Furthermore, while this is a modified example from Keycloak, the same applies to other Identity Providers like Okta, Auth0, and others but they'll probably differ in structure and setup for each one.
+While you can overload the JWT at the Identity Provider by namespacing application roles as we see in the above JWT fragment, it has all the drawbacks we mentioned earlier. Furthermore, while this is a modified example from Keycloak, the same applies to other Identity Providers like Okta, Auth0, and others and they'll almost certainly all differ in structure and setup.
 
 Even if you avoid overloading the JWT at the Identity Provider, beware of doing something worse. I've seen single API Gateways designed to receive the JWT, dispose of it, and create a new custom non-OAuth2 token with roles and permissions baked in. In this case you get all the downsides of baking in application roles and permissions but also lose the access token (for refreshing, standardized libraries and frameworks, etc.) and make your API Gateway overly complex.
 
@@ -109,14 +109,41 @@ The question then is, given your presented identity, what should the application
 
 # The case for a "policy service"
 
-I've heard people go as far to say that authorization is just business logic. Despite permissions being application-specific, they don't have to be entirely "business logic" in your code. While I agree that it is largely, if not entirely, business logic, I also believe that a good chunk of that authorization can be done in a standardized or centralizable way that is easily mockable in tests.
+I've heard people go as far as to say that authorization is just business logic. Despite permissions being application-specific, they don't have to be entirely "business logic" in your code. While I agree that it is largely, if not entirely, business logic, I also believe that a good chunk of that authorization can be done in a standardized or centralizable way that is easily mockable in tests.
 
 For example, your application could ask a logical "policy service" a simple _yes_ or _no_ question: 
 > "Given a specific application (or 'policy'), user, and permission name, do they have that permission?"
 
-Then, that policy service would have the responsibility of managing these rules and responding to requests (or questions) of applications wanting to know the answers. Of course authorization rules can be more complex than this but I'd argue that there is a place calls to such a policy service invoked from more complex business logic in your application code and mocked in the tests.
+For example, say you have a note service that stores notes. You could ask the policy service, "given policy 'note', user 'susan', and permission 'CanRead', do they have that permission?" so that if you were trying to get all notes that 'susan' had access to, your logic might look something like this:
 
-There are more questions that arise from this such as:
+{% highlight java %}
+
+List<Note> getNotes(Jwt accessToken) {
+
+  // for access
+  if (!policyService.hasPermission("note", jwt, "CanRead")) {
+    throw new AccessDeniedException(); // 403
+  }
+
+  // for filtering
+  if (policyService.hasPermission("note", jwt, "CanReadConfidentialNotes")) {
+    return noteRepository.findAll();
+  } else {
+    return noteRepository.findByConfidentialFalse();
+  }
+}
+
+{% endhighlight %}
+
+where `policyService.hasPermission` could be mocked out in your tests to return `true` or `false` depending on the particular permission and the claims in your JWT (e.g. "susan" as the `preferred_username`). Sometimes, you'll notice that the business logic is _more_ than calling the policyService. In the above filtering example, you need to know 
+1. if the user has permission to read confidential notes, but also
+2. if the value of `confidential` on the notes you're returning is `true` or `false` or at least request the right kind of notes from your repository
+
+The second requirement isn't something you can easily store on a generic policy service--it's business logic that requires querying your own domain objects. However, the permission in the first requirement can easily be generalized and handled by a policy service.
+
+If you use a policy service in this way, then it becomes easier to see the division of responsibilities of the policy service and your own application business logic. The policy service would have the responsibility of managing these rules (who has what permission for what policy) and responding to requests like `hasPermission` from applications wanting to know the answers. You business logic can compose policy service calls along with domain-specific calls in order to achieve the access rules or filtering required. Hopefully the above example shows how they can fit together. Testing also should be fairly straighforward. A policy service application could also support a slightly more complex API to return roles, store permissions on specific entities or entity types, etc. but that's beyond the scope of this post. 
+
+Many more questions arise from all this such as:
 * what is the cost of all the calls to this centralized policy service?
 * what are the caching tradeoffs?
 * is it better to just be a side-car service--co-located with the application or even a "starter dependency" that you can include to your application to reduce boiler plate?
