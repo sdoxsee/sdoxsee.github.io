@@ -3,13 +3,16 @@ layout: post
 title:  "Merry Microservices: Part 2 'UI Gateway'--A React UI served by a Spring Cloud Gateway OAuth2 Client"
 author: stephen
 tags: [ OAuth2, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices, React, Create React App, TypeScript, Hooks, OpenID Connect ]
-# image: assets/images/react.svg
+image: 
+  path: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Downing_Street_%283714923934%29.jpg/1280px-Downing_Street_%283714923934%29.jpg
+  thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Downing_Street_%283714923934%29.jpg/1280px-Downing_Street_%283714923934%29.jpg
+  caption: "Photo from [Wikimedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Downing_Street_%283714923934%29.jpg/1280px-Downing_Street_%283714923934%29.jpg)"
 featured: true
 ---
 
 This is Part 2 of the series "[Merry Microservices](/blog/2019/12/17/merry-microservices-an-introduction)"
 
-The source can be found on github at [https://github.com/sdoxsee/merry-microservices-gateway](https://github.com/sdoxsee/merry-microservices-gateway).
+The source can be found on github at [https://github.com/sdoxsee/merry-microservices-part2](https://github.com/sdoxsee/merry-microservices-part2).
 
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
@@ -636,7 +639,7 @@ I think that's REALLY cool :)
 
 It's been my pleasure to share how I added a Create React App with TypeScript and Hooks to a Spring Cloud Gateway OAuth2 Client to relay secure requests to downstream resource servers. I'd love to hear what you think!
 
-In the next post (Part 3), we'll look into the place of a "policy service" for controlling authorization in applications based on the user's identity and the permissions set up on the "policy service". 
+In the next post ([Part 3](/blog/2020/01/12/merry-microservices-part3-policy-service)), we'll look into the place of a "policy service" for controlling authorization in applications based on the user's identity and the permissions set up on the "policy service". 
 
 Please **follow me** on [twitter](https://twitter.com/doxsees) or [subscribe](/atom.xml) to be updated as each part of this series comes out. 
 {: .notice}

@@ -3,7 +3,10 @@ layout: post
 title:  "Merry Microservices: Part 1 'Resource Server'--An OAuth2 Resource Server with Webflux and R2DBC"
 author: stephen
 tags: [ OAuth2, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices ]
-# image: assets/images/logo-jhipster.svg
+image: 
+  path: https://upload.wikimedia.org/wikipedia/commons/4/4f/Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg
+  thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg/640px-Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg
+  caption: "Photo from [Wikimedia](https://upload.wikimedia.org/wikipedia/commons/4/4f/Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg)"
 featured: true
 ---
 
@@ -11,7 +14,7 @@ This is Part 1 of the series "[Merry Microservices](/blog/2019/12/17/merry-micro
 
 We'll be introducing a simple confidential note OAuth2 resource server with Spring Boot Webflux, and Spring Data R2DBC.
 
-The source can be found on github at [https://github.com/sdoxsee/merry-microservices-note](https://github.com/sdoxsee/merry-microservices-note).
+The source can be found on github at [https://github.com/sdoxsee/merry-microservices-part1](https://github.com/sdoxsee/merry-microservices-part1).
 
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
@@ -239,7 +242,7 @@ Why the is our issuer using the realm `jhipster`? I was too lazy to configure ke
 and, it's really easy to start up on port 9080 with docker-compose!
 
 {% highlight bash %}
-docker-compose -f src/main/docker/keycloak.yml up -d
+docker-compose up
 {% endhighlight %}
 
 Go to [http://localhost:9080/auth/admin](http://localhost:9080/auth/admin) and log in with `admin/admin`. 
