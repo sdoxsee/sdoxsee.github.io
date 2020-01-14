@@ -12,7 +12,7 @@ featured: true
 
 This is Part 2 of the series "[Merry Microservices](/blog/2019/12/17/merry-microservices-an-introduction)"
 
-The source can be found on github at [https://github.com/sdoxsee/merry-microservices-part2](https://github.com/sdoxsee/merry-microservices-part2).
+The source can be found on github at [https://github.com/sdoxsee/merry-microservices/tree/part2](https://github.com/sdoxsee/merry-microservices/tree/part2).
 
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
@@ -326,7 +326,7 @@ We also say that we want to proxy any requests made to the following paths to ou
 Well, we've done a lot of configuration to talk to our Identity Provider so let's start it, Keycloak, up!
 
 {% highlight bash %}
-docker-compose -f src/main/docker/keycloak.yml up -d
+docker-compose up
 {% endhighlight %}
 
 Verify it's running at `http://localhost:9080`
@@ -470,9 +470,9 @@ We add predicates for the path `/api/notes/**` so that requests that match that 
 1. relay the access token along with the request to the resources server (i.e. `TokenRelay`), and 
 2. strip cookie headers as they are of no use to the resource server (i.e. `RemoveRequestHeader=Cookie`)
 
-# Development is ready
+# Start the gateway in development mode
 
-Assuming that your note resource server is up and running from [Part 1](/blog/2019/12/17/merry-microservices-part1-resource-server) on port 8081 with keycloak on port 9080, you can pretty much start up the front end `npm start` and the gateway server `/.mvnw spring-boot:run` and it all should work (also assuming you've filled in the missing pieces from the github repo).
+Assuming that your note resource server is up and running from [Part 1](/blog/2019/12/17/merry-microservices-part1-resource-server) on port 8081 with keycloak on port 9080, from the `gateway` directory, you can pretty much start up the front end `npm start` and the gateway server `/.mvnw spring-boot:run` and it all should work (also assuming you've filled in the missing pieces from the github repo).
 
 # Get ready for production
 

@@ -14,7 +14,7 @@ This is Part 3 of the series "[Merry Microservices](/blog/2019/12/17/merry-micro
 
 We'll be building on the confidential note service from [Part 1](/blog/2019/12/17/merry-microservices-part1-resource-server) and the UI gateway from [Part 2](/blog/2019/12/17/merry-microservices-part2-gateway) but we'll further our authorization, beyond what OAuth2 provides, by calling a "policy service" where application-specific permissions are managed.
 
-The source can be found on github at [https://github.com/sdoxsee/merry-microservices-part3](https://github.com/sdoxsee/merry-microservices-part3).
+The source can be found on github at [https://github.com/sdoxsee/merry-microservices/tree/part3](https://github.com/sdoxsee/merry-microservices/tree/part3).
 
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
@@ -169,9 +169,9 @@ In any case, we now have a `PolicyService` client and we're using it imperativel
 {: .notice}
 
 # Setting up the "policy service" 
-## Start Keycloak
+## Start Keycloak and "policy service"
 
-Before we can setup the "policy service", we need to start it.
+Before we can setup the "policy service", we need to start it up along with Keycloak. We've added a new `policyservice` service to the `docker-compose.yml` to make it easy to start.
 
 ```
 docker-compose up

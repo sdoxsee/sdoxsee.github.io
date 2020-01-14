@@ -14,7 +14,7 @@ This is Part 1 of the series "[Merry Microservices](/blog/2019/12/17/merry-micro
 
 We'll be introducing a simple confidential note OAuth2 resource server with Spring Boot Webflux, and Spring Data R2DBC.
 
-The source can be found on github at [https://github.com/sdoxsee/merry-microservices-part1](https://github.com/sdoxsee/merry-microservices-part1).
+The source can be found on github at [https://github.com/sdoxsee/merry-microservices/tree/part1](https://github.com/sdoxsee/merry-microservices/tree/part1).
 
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
@@ -239,7 +239,7 @@ Why the is our issuer using the realm `jhipster`? I was too lazy to configure ke
 * default identity role for `jhipster` user: `ROLE_USER`
 * default client id and secret of `web_app/web_app` configured for authorization_code flow
 
-and, it's really easy to start up on port 9080 with docker-compose!
+and, it's really easy to start up on port 9080 with docker-compose! We've included a copy of it in the root directory of our github repo
 
 {% highlight bash %}
 docker-compose up
@@ -251,7 +251,7 @@ Go to [http://localhost:9080/auth/admin](http://localhost:9080/auth/admin) and l
 
 ## Start the Spring Boot application
 
-That's it! Fire up the app
+That's it! Fire up the app from the `note` directory
 
 {% highlight bash %}
 ./mvnw spring-boot:run
