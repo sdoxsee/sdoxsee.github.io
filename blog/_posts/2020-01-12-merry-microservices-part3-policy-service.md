@@ -16,6 +16,7 @@ We'll be building on the confidential note service from [Part 1](/blog/2019/12/1
 
 The source can be found on github at [https://github.com/sdoxsee/merry-microservices/tree/part3](https://github.com/sdoxsee/merry-microservices/tree/part3).
 
+
 <img border="0" src="/assets/images/merry-microservices/gift.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
 <img border="0" src="/assets/images/merry-microservices/gift3.svg" width="19%"/>
@@ -23,6 +24,13 @@ The source can be found on github at [https://github.com/sdoxsee/merry-microserv
 <img border="0" src="/assets/images/merry-microservices/gift2.svg" width="19%"/>
 
 {% include toc %}
+
+# Screencast
+
+<!-- 16:9 aspect ratio -->
+<div class="responsive-embed responsive-embed-16by9">
+<iframe class="responsive-embed-item" src="https://www.youtube.com/embed/ZLA6zBm7YHk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 # Preamble
 
@@ -201,7 +209,7 @@ Finally, because we're lazy and don't want to get into the batch provisioning of
 
 ![Add identity roles](/assets/images/merry-microservices/part3/identity-roles.png)
 
-For example, since Keycloak's `admin` user has the identity roles `ROLE_ADMIN` and `ROLE_USER` in its JWT access token, our "policy service" can automatically map the roles and permissions from the `admin` and `user` "Role" entities defined on our policy service. Since Keycloak's `user` user only has the `ROLE_USER` identity role, our "policy service" will only map the roles and permissions that come from the `user` "Role" entity.
+For example, since Keycloak's `admin` user has the identity roles `ROLE_ADMIN` and `ROLE_USER` in its JWT access token, our "policy service" can automatically map the permissions from the respective `admin` and `user` "Role" entities as defined on our policy service. Since Keycloak's `user` user only has the `ROLE_USER` identity role, our "policy service" will only map the roles and permissions that come from the `user` "Role" entity.
 
 ## Policy setup for our UI gateway
 
@@ -376,7 +384,7 @@ There are **more "policy service" features** that we didn't explore yet, includi
   * **all defaults** from identity role mappings
   * permissions for a particular **entity type** (e.g. all `Note` entities)
   * permissions for a particular **entity id** of a particular entity type (e.g. the `Note` with id `1234`)
-* querying **roles** as well permissions
+* querying **roles** as well as permissions
 * more upcoming features to simplify the **onboarding** of large groups of users
 
 If you're interested in using or contributing to the "policy service", **direct message me** on [twitter](https://twitter.com/doxsees). I'm hoping to offer it soon as a SaaS and/or open source it.
