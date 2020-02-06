@@ -28,6 +28,13 @@ With many options come many opinions. The [Accelerate](https://www.amazon.ca/gp/
 > Coupling ourselves to the right things via best-practice and standardization will accelerate software development performance.
 <!-- {: .notice} -->
 
+So far, we've used a single repository to hold the source of all our microservices to keep things simple on our local machines. Now we're going to split it up because we want to be able to change the applications independently.
+
+github.com/sdoxsee/merry-microservices-gateway
+github.com/sdoxsee/merry-microservices-note
+github.com/sdoxsee/keycloak-http
+github.com/sdoxsee/policyservice
+
 # Coming Soon!
 
 In the meantime, check out [Part 1](/blog/2019/12/17/merry-microservices-part1-resource-server)
