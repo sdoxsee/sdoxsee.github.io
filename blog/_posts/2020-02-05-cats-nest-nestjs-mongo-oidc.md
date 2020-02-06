@@ -73,6 +73,10 @@ Use [https://httpie.org/](https://httpie.org/) to create/read/update cat records
 * Read: `http localhost:3000/cats`
 * Update: `http -f PUT localhost:3000/cats/5e3859ab9ffdd4d02913e0fc name=Maximus`
 
+**Note**: You'll need to temporarily comment out `@UseGuards(AuthenticatedGuard)` on `CatsController` if you want to run the commands above since you're not authenticated.
+{: .notice}
+
+
 # Why NestJS
 
 JavaScript development can be a bit like the wild west. There are lots of ways to skin a cat (sorry, bad joke). I've done a fair bit on the front-end with JavaScript before but not so much on the back-end. NestJS promises to bring best-practice architecture and consistency to Node applications. It actually feels a lot like Spring Boot development (which is a win from my perspective).
