@@ -46,7 +46,7 @@ OIDC introduced JWTs for their ID Token but, soon, applications began using JWTs
 
 In adding application roles and permissions to our tokens, we've conflated identity with permissions. The access token given to us by the Authorization Server is really about identity or "identity authorization". Yes, it's confusing. How can an "authorization server" not be about authorization? Well, it still is. With OAuth2, subsequent to "authentication" at the Identity Provider, the user then has the ability to grant authorization to the application to act on the their behalf. So despite it being "authorization", it's authorization to act as that "identity"--limited by the granted scopes.
 
-# Consequenses of identity and permission conflation in JWTs
+# Consequences of identity and permission conflation in JWTs
 
 When we go beyond identity in our access tokens, we're making them into something for which they were not intended and reap the consequences of doing so. Some problems of adding permission claims include:
 * loss of on-demand access control and permission changes until access token expires
