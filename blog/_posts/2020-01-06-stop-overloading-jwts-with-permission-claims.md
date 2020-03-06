@@ -18,7 +18,7 @@ Here's why...
 
 The authorization that OAuth2 provides is likely a subset of all the authorization you need. OAuth2 deals with what I call "**identity authorization**". I think that we've often misunderstood authorization by trying to make OAuth2 do more authorization than it's supposed to by customizing JWT access tokens (that should be about "identity") with application-specific role and permission claims that don't belong there.
 
-# Authentication and authorizaion
+# Authentication and authorization
 
 You've probably heard it said that OpenID Connect (OIDC) is about _authentication_ while OAuth2 is about _authorization_.
 
