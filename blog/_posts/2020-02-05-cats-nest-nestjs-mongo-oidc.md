@@ -696,7 +696,7 @@ and add the following to our `imports` array in `AppModule` to point to our fron
 
 * [https://dev.to/nestjs/authentication-and-sessions-for-mvc-apps-with-nestjs-55a4](https://dev.to/nestjs/authentication-and-sessions-for-mvc-apps-with-nestjs-55a4)
 * [https://medium.com/@nielsmeima/auth-in-nest-js-and-angular-463525b6e071](https://medium.com/@nielsmeima/auth-in-nest-js-and-angular-463525b6e071)
-* [https://github.com/nestjs/docs.nestjs.com/issues/99#issuecomment-557878531](https://github.com/nestjs/docs.nestjs.com/issues/99#issuecomment-557878531)
+* [https://github.com/nestjs/docs.nestjs.com/issues/99#issuecomment-557878531](https://github.com/nestjs/docs.nestjs.com/issues/99#issuecomment-557878531) ([Nikolai Hegelstad](https://github.com/hegelstad))
 
 # Conclusion
 
