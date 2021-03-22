@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Multi-tenant resource servers in OAuth 2.0 (with Spring Security 5)"
+title:  "Multi-tenant OAuth 2.0 Resource Servers (with Spring Security 5)"
 author: stephen
 tags: [ OAuth, OAuth 2.0, Multitenancy, Multi-tenant, Resource Server, Users, User Pool, Tenant, Authorization Server, Identity Provider, Spring Boot, Spring Security, JWT, Okta, Auth0, FusionAuth ]
 image: 
