@@ -2,7 +2,7 @@
 layout: post
 title:  "Stop overloading JWTs with permission claims"
 author: stephen
-tags: [OAuth2, JWT, OpenID Connect, Authorization, Permissions, Roles, Identity]
+tags: [OAuth 2.0, JWT, Authorization, Permissions, Roles, Identity, Scopes, RBAC, OpenID Connect]
 image: 
   path: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Truck_in_India_-_overloaded.jpg/1280px-Truck_in_India_-_overloaded.jpg
   thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Truck_in_India_-_overloaded.jpg/640px-Truck_in_India_-_overloaded.jpg
@@ -16,35 +16,35 @@ Here's why...
 
 # TL;DR  
 
-The authorization that OAuth2 provides is likely a subset of all the authorization you need. OAuth2 deals with what I call "**identity authorization**". I think that we've often misunderstood authorization by trying to make OAuth2 do more authorization than it's supposed to by customizing JWT access tokens (that should be about "identity") with application-specific role and permission claims that don't belong there.
+The authorization that OAuth 2.0 provides is likely a subset of all the authorization you need. OAuth 2.0 deals with what I call "**identity authorization**". I think that we've often misunderstood authorization by trying to make OAuth 2.0 do more authorization than it's supposed to by customizing JWT access tokens (that should be about "identity") with application-specific role and permission claims that don't belong there.
 
 # Authentication and authorization
 
-You've probably heard it said that OpenID Connect (OIDC) is about _authentication_ while OAuth2 is about _authorization_.
+You've probably heard it said that OpenID Connect (OIDC) is about _authentication_ while OAuth 2.0 is about _authorization_.
 
 * Authentication is about _who you are_
 * Authorization is about _what you can do_
 
 This is all true. However, it's not quite that simple.
 
-# What kind of authorization does OAuth2 provide?
+# What kind of authorization does OAuth 2.0 provide?
 
-OAuth2 is about authorizing (or delegating authority to) applications to do things on a user's behalf without requiring them to hand over their credentials. In addition to this, OAuth2 "scopes" let the user decide to grant all or some of the scopes requested by the application. But, you can't simply trust a user! The application has its own rules about what the user can do that go beyond the scopes that the user granted the application. Application rules are not what OAuth2 should be used for and scopes have a more specific [purpose](https://auth0.com/blog/on-the-nature-of-oauth2-scopes/).
+OAuth 2.0 is about authorizing (or delegating authority to) applications to do things on a user's behalf without requiring them to hand over their credentials. In addition to this, OAuth 2.0 "scopes" let the user decide to grant all or some of the scopes requested by the application. But, you can't simply trust a user! The application has its own rules about what the user can do that go beyond the scopes that the user granted the application. Application rules are not what OAuth 2.0 should be used for and scopes have a more specific [purpose](https://auth0.com/blog/on-the-nature-of-oauth2-scopes/).
 
 > The application has **its own rules** about what the user can do that go _beyond_ the scopes that the user granted the application
 
-OIDC and OAuth2 are very related. You don't need OIDC for authentication. Facebook, Github and many others just customize OAuth2 for authentication in addition to authorization. What's special about OIDC is that it standardizes authentication on top of OAuth2 so that it can be handled consistently. With OIDC handling authentication, OAuth2 can get back to the business of authorization--but specifically, the authorization of applications to act on a user's behalf. Nothing more. Both are really about "**identity**" so I'd call OAuth2 authorization "**identity authorization**."
+OIDC and OAuth 2.0 are very related. You don't need OIDC for authentication. Facebook, Github and many others just customize OAuth 2.0 for authentication in addition to authorization. What's special about OIDC is that it standardizes authentication on top of OAuth 2.0 so that it can be handled consistently. With OIDC handling authentication, OAuth 2.0 can get back to the business of authorization--but specifically, the authorization of applications to act on a user's behalf. Nothing more. Both are really about "**identity**" so I'd call OAuth 2.0 authorization "**identity authorization**."
 
 # The evolution of JWT access tokens
 
-OIDC introduced JWTs for their ID Token but, soon, applications began using JWTs for their access tokens as well. Even though the OAuth2 spec never even had JWTs in view, JWTs have the advantage that they let us verify the token without having to go back to the authorization server--as we _must_ for opaque tokens. I believe JWTs have become so popular because we don't have to take the performance hit of continually going to another server to validate them and allows us to know who a request was made on behalf of, without having to keep session state on your server. We pack the access tokens with "claims" about the user's identity and the scopes they've granted to the client application. Over time, however, we've packed more and more into those JWTs--including application roles and permissions. 
+OIDC introduced JWTs for their ID Token but, soon, applications began using JWTs for their access tokens as well. Even though the OAuth 2.0 spec never even had JWTs in view, JWTs have the advantage that they let us verify the token without having to go back to the authorization server--as we _must_ for opaque tokens. I believe JWTs have become so popular because we don't have to take the performance hit of continually going to another server to validate them and allows us to know who a request was made on behalf of, without having to keep session state on your server. We pack the access tokens with "claims" about the user's identity and the scopes they've granted to the client application. Over time, however, we've packed more and more into those JWTs--including application roles and permissions. 
 
 **Note**: There's a case to be made for "identity roles" as opposed to "application roles" being present in JWTs. Identity roles would be those roles that apply throughout the entire universe of services you have. In fact, they allow simple mappings from identity roles to application roles if needed so that you don't have to explicitly handle mappings for each user. However, the concept of "identity roles" seems a bit short-sighted since a so-called "identity role" may cease to apply when the next service is incepted.
 {: .notice}
 
 # Conflating identity with permissions
 
-In adding application roles and permissions to our tokens, we've conflated identity with permissions. The access token given to us by the Authorization Server is really about identity or "identity authorization". Yes, it's confusing. How can an "authorization server" not be about authorization? Well, it still is. With OAuth2, subsequent to "authentication" at the Identity Provider, the user then has the ability to grant authorization to the application to act on the their behalf. So despite it being "authorization", it's authorization to act as that "identity"--limited by the granted scopes.
+In adding application roles and permissions to our tokens, we've conflated identity with permissions. The access token given to us by the Authorization Server is really about identity or "identity authorization". Yes, it's confusing. How can an "authorization server" not be about authorization? Well, it still is. With OAuth 2.0, subsequent to "authentication" at the Identity Provider, the user then has the ability to grant authorization to the application to act on the their behalf. So despite it being "authorization", it's authorization to act as that "identity"--limited by the granted scopes.
 
 # Consequences of identity and permission conflation in JWTs
 
@@ -91,7 +91,7 @@ Even if you "namespace" your roles and permissions to specific applications in y
 
 While you can overload the JWT at the Identity Provider by namespacing application roles as we see in the above JWT fragment, it has all the drawbacks we mentioned earlier. Furthermore, while this is a modified example from Keycloak, the same applies to other Identity Providers like Okta, Auth0, and others and they'll almost certainly all differ in structure and setup.
 
-Even if you avoid overloading the JWT at the Identity Provider, beware of doing something worse. I've seen single API Gateways designed to receive the JWT, dispose of it, and create a new custom non-OAuth2 token with roles and permissions baked in. In this case you get all the downsides of baking in application roles and permissions but also lose the access token (for refreshing, standardized libraries and frameworks, etc.) and make your API Gateway overly complex.
+Even if you avoid overloading the JWT at the Identity Provider, beware of doing something worse. I've seen single API Gateways designed to receive the JWT, dispose of it, and create a new custom non-OAuth 2.0 token with roles and permissions baked in. In this case you get all the downsides of baking in application roles and permissions but also lose the access token (for refreshing, standardized libraries and frameworks, etc.) and make your API Gateway overly complex.
 
 # So, I shouldn't put permissions into my JWTs? 
 

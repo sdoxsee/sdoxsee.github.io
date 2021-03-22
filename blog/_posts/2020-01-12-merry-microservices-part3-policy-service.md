@@ -2,7 +2,7 @@
 layout: post
 title:  "Merry Microservices: Part 3 'Policy Service'--Managing application-specific authorization based on identity and permissions"
 author: stephen
-tags: [ OAuth2, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices, React, Create React App, TypeScript, Hooks, OpenID Connect ]
+tags: [ OAuth, OAuth 2.0, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices, React, Create React App, TypeScript, Hooks, OpenID Connect ]
 image: 
   path: https://wikimediafoundation.org/wp-content/uploads/2019/12/Court-Gavel-Judges-Gavel-Courtroom.jpg
   thumbnail: https://wikimediafoundation.org/wp-content/uploads/2019/12/Court-Gavel-Judges-Gavel-Courtroom.jpg
@@ -12,7 +12,7 @@ featured: true
 
 This is Part 3 of the series "[Merry Microservices](/blog/2019/12/17/merry-microservices-an-introduction)"
 
-We'll be building on the confidential note service from [Part 1](/blog/2019/12/17/merry-microservices-part1-resource-server) and the UI gateway from [Part 2](/blog/2019/12/17/merry-microservices-part2-gateway) but we'll further our authorization, beyond what OAuth2 provides, by calling a "policy service" where application-specific permissions are managed.
+We'll be building on the confidential note service from [Part 1](/blog/2019/12/17/merry-microservices-part1-resource-server) and the UI gateway from [Part 2](/blog/2019/12/17/merry-microservices-part2-gateway) but we'll further our authorization, beyond what OAuth 2.0 provides, by calling a "policy service" where application-specific permissions are managed.
 
 The source can be found on github at [https://github.com/sdoxsee/merry-microservices/tree/part3](https://github.com/sdoxsee/merry-microservices/tree/part3).
 
@@ -38,7 +38,7 @@ In order to keep this introduction short, I recommend you first read "[Stop over
 
 But here's a quick summary:
 
-> We want to keep role and permission claims out of our JWT OAuth2 access token because it should only be concerned with "identity authorization". However, "identity authorization" isn't enough because it's only what the user has authorized the application to do on their behalf--not what the application authorizes the user to do! For that, we need more granular authorization and permissions in our application. Or, to avoid building the same services over and over, we'll use a centralized "policy service" that we call from our applications that answers whether or not a user has a given permission.
+> We want to keep role and permission claims out of our JWT OAuth 2.0 access token because it should only be concerned with "identity authorization". However, "identity authorization" isn't enough because it's only what the user has authorized the application to do on their behalf--not what the application authorizes the user to do! For that, we need more granular authorization and permissions in our application. Or, to avoid building the same services over and over, we'll use a centralized "policy service" that we call from our applications that answers whether or not a user has a given permission.
 
 So, what "policy service" are we going to use? Well, there's the community version of PolicyServer for .NET but that won't work with anything other than Microsoft. The commercial version could serve our purposes but it 
 1. doesn't have a freemium model (other than the single application community version)
@@ -57,7 +57,7 @@ Off the top of my head, we have a few approaches to authorization in Spring Secu
 2. Method-based authorization (including Spring Security's `@PreAuthorize` calls)
 3. Imperative authorization where, based on business logic, we throw `AccessDeniedException` (that triggers a 403 response) or return a 403 response directly.
 
-I think usually you'd use #1 (route-based) for OAuth2 scope authorization. I'm not a big fan of #2's (method-based) `@PreAuthorize` because I find it SPEL awkward and limiting. #3 can be very expressive and testable allowing us to use policyService responses to **control access** and/or **filter results**. 
+I think usually you'd use #1 (route-based) for OAuth 2.0 scope authorization. I'm not a big fan of #2's (method-based) `@PreAuthorize` because I find it SPEL awkward and limiting. #3 can be very expressive and testable allowing us to use policyService responses to **control access** and/or **filter results**. 
 
 [Previously](/blog/2019/12/17/merry-microservices-part1-resource-server) we only let Spring Security filters determine if we should return a "401 Unauthorized" or not simply by validating the JWT access token. Perhaps we should have also added route-based configuration to enforce scope authorization by ensuring that a scope like `authority-note` came with the access token or resulted in a "403 Forbidden" response. Although we're not going to do that in this tutorial, here's what it would have looked like:
 

@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Merry Microservices: Part 1 'Resource Server'--An OAuth2 Resource Server with Webflux and R2DBC"
+title:  "Merry Microservices: Part 1 'Resource Server'--An OAuth 2.0 Resource Server with Webflux and R2DBC"
 author: stephen
-tags: [ OAuth2, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices ]
+tags: [ OAuth, OAuth 2.0, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices ]
 image: 
   path: https://upload.wikimedia.org/wikipedia/commons/4/4f/Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg
   thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg/640px-Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg
@@ -12,7 +12,7 @@ featured: true
 
 This is Part 1 of the series "[Merry Microservices](/blog/2019/12/17/merry-microservices-an-introduction)"
 
-We'll be introducing a simple confidential note OAuth2 resource server with Spring Boot Webflux, and Spring Data R2DBC.
+We'll be introducing a simple confidential note OAuth 2.0 resource server with Spring Boot Webflux, and Spring Data R2DBC.
 
 The source can be found on github at [https://github.com/sdoxsee/merry-microservices/tree/part1](https://github.com/sdoxsee/merry-microservices/tree/part1).
 
@@ -272,7 +272,7 @@ Create a note using a `POST` to `http://localhost:8081/api/notes` with the a JSO
 }
 {% endhighlight %}
 
-Go to your Authorization section, click the "Get New Access Token" button, and fill in the OAuth2 configuration for your identity provider. Our configuration is as follows:
+Go to your Authorization section, click the "Get New Access Token" button, and fill in the OAuth 2.0 configuration for your identity provider. Our configuration is as follows:
 
 **Tip**: If you you need to look up the endpoints, use the [discovery endpoint](http://localhost:9080/auth/realms/jhipster/.well-known/openid-configuration) as your guide
 {: .notice}
@@ -297,11 +297,11 @@ Similar to creating a note, we can change our HTTP Method to `GET` at the same e
 
 # Conclusion
 
-So now, we've got a fully reactive OAuth2 Resource Server built with Spring Boot Webflux app and R2DBC. 
+So now, we've got a fully reactive OAuth 2.0 Resource Server built with Spring Boot Webflux app and R2DBC. 
 
 Next time (in [Part 2](/blog/2019/12/17/merry-microservices-part2-ui-gateway)), we'll create a gateway application with React ([Create React App](https://github.com/facebook/create-react-app)) and Spring Cloud Gateway (with Webflux) that will 
 1. Serve up our React CRUD application with a great development experience
-2. Manage all the OAuth2 and OpenID Connect token flows automatically and safely with Spring Security 5.2.x and relay the access tokens to our note service
+2. Manage all the OAuth 2.0 and OpenID Connect token flows automatically and safely with Spring Security 5.2.x and relay the access tokens to our note service
 
 Let me know what you think in the comments section.
 

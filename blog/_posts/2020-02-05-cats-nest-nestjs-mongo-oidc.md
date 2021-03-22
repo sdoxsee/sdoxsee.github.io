@@ -33,7 +33,7 @@ cd back-end
 npm install
 {% endhighlight %}
 
-Add `.env' like this. I realize I'm sharing credentials for a Google OAuth2 Client and a MongoDB user but that's just for you to test this out easily. Please feel free create/use your own.
+Add `.env' like this. I realize I'm sharing credentials for a Google OAuth 2.0 Client and a MongoDB user but that's just for you to test this out easily. Please feel free create/use your own.
 
 {% highlight bash %}
 OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER=https://accounts.google.com
@@ -247,7 +247,7 @@ export class AuthController {
 }
 {% endhighlight %}
 
-The two endpoints annotated with `@UseGuards(LoginGuard)` are those involved in the two kinds of authentication OAuth2 authorization code flow requires (i.e. user and client)
+The two endpoints annotated with `@UseGuards(LoginGuard)` are those involved in the two kinds of authentication OAuth 2.0 authorization code flow requires (i.e. user and client)
 1. `/login`: redirects to authorization endpoint of Identity Provider for front-channel _user authentication_
 2. `/callback`: receives the `code` grant from the Identity Provider and exchanges it, back-channel, for an `id_token` by means of _client credential authentication_
 

@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Merry Microservices: Part 2 'UI Gateway'--A React UI served by a Spring Cloud Gateway OAuth2 Client"
+title:  "Merry Microservices: Part 2 'UI Gateway'--A React UI served by a Spring Cloud Gateway OAuth 2.0 Client"
 author: stephen
-tags: [ OAuth2, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices, React, Create React App, TypeScript, Hooks, OpenID Connect ]
+tags: [ OAuth, OAuth 2.0, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices, React, Create React App, TypeScript, Hooks, OpenID Connect ]
 image: 
   path: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Downing_Street_%283714923934%29.jpg/1280px-Downing_Street_%283714923934%29.jpg
   thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Downing_Street_%283714923934%29.jpg/1280px-Downing_Street_%283714923934%29.jpg
@@ -30,9 +30,9 @@ There are different opinions on whether or not to keep the UI separate from the 
 
 At face value, it looks like people like them to be separated. However, I think the question needs more unpacking (Dave Syer does a great job of [discussing](https://spring.io/guides/tutorials/spring-security-and-angular-js/#_help_how_is_my_application_going_to_scale) this). 
 
-My take on that poll is that people don't want to restart their backend to see changes in their UI code. I 100% agree with that. However, you can still have that developer experience and serve up the UI along with a backend of some sort. In the case of a monolith, your full backend API would be part of your bundle. In the case of a microservice gateway, you can still serve up your application with a thin server-side gateway that manages your authentication, session, OAuth2 access tokens, and request routing. That's what we're going to do in this tutorial. Devs may also be worried about fighting with UI and server configuration when serving up the UI along with a backend but I'll show you how easy it is!
+My take on that poll is that people don't want to restart their backend to see changes in their UI code. I 100% agree with that. However, you can still have that developer experience and serve up the UI along with a backend of some sort. In the case of a monolith, your full backend API would be part of your bundle. In the case of a microservice gateway, you can still serve up your application with a thin server-side gateway that manages your authentication, session, OAuth 2.0 access tokens, and request routing. That's what we're going to do in this tutorial. Devs may also be worried about fighting with UI and server configuration when serving up the UI along with a backend but I'll show you how easy it is!
 
-This tutorial builds on the great work of others. [Tania Rascia](https://twitter.com/taniarascia) has a simple standalone CRUD front-end built with Create React App and Hooks [https://github.com/taniarascia/react-hooks](https://github.com/taniarascia/react-hooks). I love it because it's simple! However, as a good Java developer, we have to add TypeScript and, until I learn [Styled Components](https://www.styled-components.com/), my go-to UI style is Bootstrap with Reactstrap. We also add some OpenID Connect Authentication by using some techniques by [Matt Raible](https://twitter.com/mraible) in [Use React and Spring Boot to Build a Simple CRUD App](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot) and make the backend a Spring Cloud Gateway (Webflux) and OAuth2 Client.
+This tutorial builds on the great work of others. [Tania Rascia](https://twitter.com/taniarascia) has a simple standalone CRUD front-end built with Create React App and Hooks [https://github.com/taniarascia/react-hooks](https://github.com/taniarascia/react-hooks). I love it because it's simple! However, as a good Java developer, we have to add TypeScript and, until I learn [Styled Components](https://www.styled-components.com/), my go-to UI style is Bootstrap with Reactstrap. We also add some OpenID Connect Authentication by using some techniques by [Matt Raible](https://twitter.com/mraible) in [Use React and Spring Boot to Build a Simple CRUD App](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot) and make the backend a Spring Cloud Gateway (Webflux) and OAuth 2.0 Client.
 
 # Generate the project
 
@@ -172,9 +172,9 @@ In the above tsx code, we define a `login` function that, when we click the logi
 
 We're now getting to the point where we need to jump to the server-side to understand what's going on. 
 
-### YAML OAuth2 configuration
+### YAML OAuth 2.0 configuration
 
-How does Spring Security know to redirect us to Keycloak? Well, we tell set it up with an OAuth2 client registration. Here's a part of our `src/main/resources/application.yml`:
+How does Spring Security know to redirect us to Keycloak? Well, we tell set it up with an OAuth 2.0 client registration. Here's a part of our `src/main/resources/application.yml`:
 
 {% highlight yaml %}
 # ...
@@ -320,7 +320,7 @@ We also say that we want to proxy any requests made to the following paths to ou
 * `/logout` so that our form post will be received
 * `/private` so that when we redirect to `/private` that Spring Security can redirect it again for authentication at the Identity Provider
 * `/oauth2/authorization/login-client` because Spring Security's redirection to the Identity Provider first gets redirected here to make call the authorize endpoint for this particular client. In this case, `login-client`.
-* and finally, `/login/oauth2/code/login-client` because that is where the Identity Provider sends back the `code` during the OAuth2 authorization_code dance.
+* and finally, `/login/oauth2/code/login-client` because that is where the Identity Provider sends back the `code` during the OAuth 2.0 authorization_code dance.
 
 # Start keycloak
 Well, we've done a lot of configuration to talk to our Identity Provider so let's start it, Keycloak, up!
@@ -442,7 +442,7 @@ const App = () => {
 
 We're going to skip explaining the particular CRUD UI definitions but they can be looked up in the source on github. Rather, we show the CRUD function definitions that make the calls to our backend and the state that it modifies:
 * `const [ notes, setNotes ] = useState(notesData)` initilizes our notes with `notesData`--an empty array of Note: `[]`
-* `getNotes` is what we call to fetch all the notes and set the resulting json as the new state for `notes` using `setNotes`. For now, if there's an error, e.g. 401 unauthorized because our gateway session expired, we call `login()` to kickstart the session again by doing the OAuth2 dance.
+* `getNotes` is what we call to fetch all the notes and set the resulting json as the new state for `notes` using `setNotes`. For now, if there's an error, e.g. 401 unauthorized because our gateway session expired, we call `login()` to kickstart the session again by doing the OAuth 2.0 dance.
 * `addNote`, `updateNote`, and `deleteNote` look pretty similar and are probably nothing new if you're familiar with REST. However, let's unpack a couple of things:
   1. First, you'll notice we're including the header `X-XSRF-TOKEN` in these "write" operations. That's what Spring Security [expects](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#webflux-csrf-configure-custom-repository)
   2. Second, we always call `getNotes()` after the request is complete. It's simple and not the most efficient but it makes sure that we get the latest array of notes in our state.
@@ -637,7 +637,7 @@ I think that's REALLY cool :)
 
 # Conclusion
 
-It's been my pleasure to share how I added a Create React App with TypeScript and Hooks to a Spring Cloud Gateway OAuth2 Client to relay secure requests to downstream resource servers. I'd love to hear what you think!
+It's been my pleasure to share how I added a Create React App with TypeScript and Hooks to a Spring Cloud Gateway OAuth 2.0 Client to relay secure requests to downstream resource servers. I'd love to hear what you think!
 
 In the next post ([Part 3](/blog/2020/01/12/merry-microservices-part3-policy-service)), we'll look into the place of a "policy service" for controlling authorization in applications based on the user's identity and the permissions set up on the "policy service". 
 

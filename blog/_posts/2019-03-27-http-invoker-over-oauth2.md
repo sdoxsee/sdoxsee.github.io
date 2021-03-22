@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "HttpInvoker over OAuth2 with Spring Boot 2.2"
+title:  "HttpInvoker over OAuth 2.0 with Spring Boot 2.2"
 # author: stephen
-tags: [ OAuth2, Spring Security, Spring Framework, RMI, Swing ]
+tags: [ OAuth, OAuth 2.0, Spring Security, Spring Framework, RMI, Swing ]
 # image: assets/images/oauth2-logo.jpg
 featured: true
 # redirect_to: https://simplestep.ca/oauth2/spring%20security/spring%20framework/rmi/swing/2019/03/27/http-invoker-over-oauth2.html
 ---
-Ok, so [`HttpInvoker`](https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#remoting-httpinvoker) may not be the what the hipsters are using (it's been around since 2003 or so) but there are still plenty of Java desktop applications out there communicating over RMI or EJB that could use a security boost by using OAuth2.
+Ok, so [`HttpInvoker`](https://docs.spring.io/spring/docs/current/spring-framework-reference/integration.html#remoting-httpinvoker) may not be the what the hipsters are using (it's been around since 2003 or so) but there are still plenty of Java desktop applications out there communicating over RMI or EJB that could use a security boost by using OAuth 2.0.
 
 If you've got a desktop app communicating to a server over RMI, how are you authorizing the calls? If the app is on the end-user's machine, how can you keep any secret auth information? 
 * username/password? - exposed
@@ -15,13 +15,13 @@ If you've got a desktop app communicating to a server over RMI, how are you auth
 
 Although obfuscation mechanisms can be used, any text can be extracted from the jar on the persons machine.
 
-So how can you keep a secret on a public application? You can't. But OAuth2 authorization grant type can be used in combination with PKCE to obtain short-lived access tokens for a specific user to securely communicate with server endpoints.
+So how can you keep a secret on a public application? You can't. But OAuth 2.0 authorization grant type can be used in combination with PKCE to obtain short-lived access tokens for a specific user to securely communicate with server endpoints.
 
 How can we do this?
 
 Let's build on baeldungs' [http-invoker tutorial](https://github.com/eugenp/tutorials/tree/master/spring-remoting/remoting-http). It doesn't use a typical desktop client but you can imagine this Spring Boot application running on the end users machine, and communicating securely with a server somewhere else, without needing to have any secrets! Essentially, the server allows remote invocations of a CabBookingService via the `http://localhost:8080/booking` endpoint. The client invokes it by hitting `http://localhost:8081` on the client after an authorization code flow to obtain access tokens for the server. Here we go!
 
-First create an OAuth2-aware WebClient:
+First create an OAuth 2.0-aware WebClient:
 
 {% highlight java %}
 
@@ -39,7 +39,7 @@ public class WebClientConfig {
 }
 {% endhighlight %}
 
-Create a custom `WebClientHttpInvokerRequestExecutor` that will send your requests using the OAuth2-aware `WebClient`:
+Create a custom `WebClientHttpInvokerRequestExecutor` that will send your requests using the OAuth 2.0-aware `WebClient`:
 
 {% highlight java %}
 
@@ -68,7 +68,7 @@ public class WebClientHttpInvokerRequestExecutor extends AbstractHttpInvokerRequ
 
 {% endhighlight %}
 
-Ensure your security configuration uses Spring Security's OAuth2 Client and uses OAuth2 Login to protect every endpoint. When you hit a protected endpoint via a web browser, Spring Security will request authentication and redirect you to its login page.
+Ensure your security configuration uses Spring Security's OAuth 2.0 Client and uses OAuth 2.0 Login to protect every endpoint. When you hit a protected endpoint via a web browser, Spring Security will request authentication and redirect you to its login page.
 
 {% highlight java %}
 
@@ -155,4 +155,4 @@ Sign in with `user@example.com`/`Password1` (if someone hasn't changed it!) or s
 
 This means you hit the server using HttpInvoker and received a response! Woohoo :)
 
-I hope you enjoyed doing fun learning how to do modern OAuth2 PKCE stuff even with older tech like Http Invoker! Please let me know what you thought of this tutorial in the comments below or on Twitter. Feel free to clone, star, or browse the code on [GitHub](https://github.com/sdoxsee/http-invoker-over-oauth2).
+I hope you enjoyed doing fun learning how to do modern OAuth 2.0 PKCE stuff even with older tech like Http Invoker! Please let me know what you thought of this tutorial in the comments below or on Twitter. Feel free to clone, star, or browse the code on [GitHub](https://github.com/sdoxsee/http-invoker-over-oauth2).

@@ -1,17 +1,24 @@
 ---
 layout: post
-title:  "Multi-tenant resource servers in OAuth 2.0"
+title:  "Multi-tenant resource servers in OAuth 2.0 (with Spring Security 5)"
 author: stephen
-tags: [ OAuth, Multitenancy, Multi-tenant, Resource Server, Users, User Pools, Tenants, Authorization Server, Identity Provider, Spring Boot, Spring Security, JWT, OAuth2, OAuth 2.0, Okta, Auth0, FusionAuth ]
-image: assets/images/multi-tenant-oauth-2.0-resource-servers/multi-tenant.png
+tags: [ OAuth, OAuth 2.0, Multitenancy, Multi-tenant, Resource Server, Users, User Pool, Tenant, Authorization Server, Identity Provider, Spring Boot, Spring Security, JWT, Okta, Auth0, FusionAuth ]
+image: 
+  path: /assets/images/multi-tenant-oauth-2.0-resource-servers/multi-tenant.png
+  thumbnail: assets/images/multi-tenant-oauth-2.0-resource-servers/multi-tenant.png
+  caption: "https://fr-fr.roomlala.com//prod/file/welchome/upload/1058.png"
 featured: true
 ---
+
+## TLDR;
+
+Check out the [github repo](https://github.com/sdoxsee/examples/tree/master/multi-tenant-jwt-resourceserver).
+
+{% include toc %}
 
 It used to be common for organizations to have only internal users that would access systems and software on-premise. With the advent of mobile devices and the explosion of external-facing web applications, those norms have been disrupted. 
 
 Organizations differentiate themselves by offering their external users (e.g. customers) the ability to self-serve--often with their own user accounts and applications that pull data from the same source systems that internal users would work from.
-
-{% include toc %}
 
 ## User pools and tenants
 
@@ -45,7 +52,7 @@ Spring Security's suppport for resource server multitenancy is decent and evolvi
 
 ## Github examples
 
-That's why I created an [example repo](https://github.com/sdoxsee/examples/tree/master/multi-tenant-jwt-resourceserver) that can be cloned and illustrates the two competing approaches they outline for multitenancy on OAuth2 resource servers. I won't repeat the great [documentation](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver-multitenancy) but essentially they have a simple (but less efficient) approach and a more complex (but more efficient and configurable) approach. I provide a multimodule project so that you can try out both.
+That's why I created an [example repo](https://github.com/sdoxsee/examples/tree/master/multi-tenant-jwt-resourceserver) that can be cloned and illustrates the two competing approaches they outline for multitenancy on OAuth 2.0 resource servers. I won't repeat the great [documentation](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver-multitenancy) but essentially they have a simple (but less efficient) approach and a more complex (but more efficient and configurable) approach. I provide a multimodule project so that you can try out both.
 
 You'll, of course, need two tenants or OAuth 2.0 authorization servers--I use Google and Auth0 in the example, but you can use whatever you want. Why not try two separate tenants on Okta and create an OAuth 2.0 app on each. [Here's how](https://developer.okta.com/docs/guides/implement-oauth-for-okta/create-oauth-app/).
 
@@ -61,11 +68,11 @@ You should get a 401 at http://localhost:8080--indicating your API is secured.
 
 ![401](/assets/images/multi-tenant-oauth-2.0-resource-servers/401.png)
 
-Once you've finish your client registrations, use curl, Postman, or [Insomnia](https://insomnia.rest/) as your OAuth2 2.0 Client to fire requests at the example resource servers. Configure your client with the client id, client secret, redirect/callback URL, authorization and token endpoints, as well as any scopes you've defined. Depending on your choice of authorization server, you'll also need to register an API with scopes that your client will need to reference in order to obtain tokens. (If this is confusing, please drop a comment and I can unpack this more)
+Once you've finish your client registrations, use curl, Postman, or [Insomnia](https://insomnia.rest/) as your OAuth 2.0 2.0 Client to fire requests at the example resource servers. Configure your client with the client id, client secret, redirect/callback URL, authorization and token endpoints, as well as any scopes you've defined. Depending on your choice of authorization server, you'll also need to register an API with scopes that your client will need to reference in order to obtain tokens. (If this is confusing, please drop a comment and I can unpack this more)
 
-Anyway, once you're able to obtain access tokens, requests made with tokens issued from either tenant by setting the `Authorization: Bearer <JWT>` header--getting you a 200 "hello" response.
+Anyway, once you're able to obtain access tokens, requests made with tokens issued from either tenant should give you 200 "hello" response. Simply set the `Authorization: Bearer <JWT>` header with your JWT access token.
 
-> **NOTE**: make sure your access tokens are JWTs by verifying that they start with `ey...`
+> **Tip**: If your access token is a JWT, it will start with `ey...`
 
 ![401](/assets/images/multi-tenant-oauth-2.0-resource-servers/insomnia200.png)
 
