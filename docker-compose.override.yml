@@ -1,0 +1,5 @@
+# version: '2.4'
+
+services:
+  jekyll:
+    command: bundle exec jekyll serve --future --draft -H 0.0.0.0 -P 4000
