@@ -2,7 +2,7 @@
 layout: post
 title:  "Merry Microservices: Part 3 'Policy Service'--Managing application-specific authorization based on identity and permissions"
 author: stephen
-tags: [ OAuth, OAuth 2.0, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices, React, Create React App, TypeScript, Hooks, OpenID Connect ]
+tags: [ OAuth, OAuth 2.0, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, Spring Security, R2DBC, Microservices, React, Create React App, TypeScript, Hooks, OpenID Connect ]
 image: 
   path: https://wikimediafoundation.org/wp-content/uploads/2019/12/Court-Gavel-Judges-Gavel-Courtroom.jpg
   thumbnail: https://wikimediafoundation.org/wp-content/uploads/2019/12/Court-Gavel-Judges-Gavel-Courtroom.jpg

@@ -2,7 +2,7 @@
 layout: post
 title:  "Merry Microservices: Part 1 'Resource Server'--An OAuth 2.0 Resource Server with Webflux and R2DBC"
 author: stephen
-tags: [ OAuth, OAuth 2.0, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, R2DBC, Microservices ]
+tags: [ OAuth, OAuth 2.0, Keycloak, Reactive, Webflux, Tutorial, Spring Boot, Spring Security, R2DBC, Microservices ]
 image: 
   path: https://upload.wikimedia.org/wikipedia/commons/4/4f/Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg
   thumbnail: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg/640px-Sticky_notes_on_the_wall_of_the_Wikimedia_Foundation_office%2C_2010-10-26.jpg
