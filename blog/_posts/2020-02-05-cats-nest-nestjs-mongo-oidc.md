@@ -43,7 +43,7 @@ OAUTH2_CLIENT_REGISTRATION_LOGIN_SCOPE=openid profile
 OAUTH2_CLIENT_REGISTRATION_LOGIN_REDIRECT_URI=http://localhost:3001/callback
 OAUTH2_CLIENT_REGISTRATION_LOGIN_POST_LOGOUT_REDIRECT_URI=http://localhost:3001
 SESSION_SECRET=super+secret+session+key
-MONGODB_URL=mongodb+srv://kitty:cat@simplestep-mongo-cluster-jhgs7.mongodb.net/test?retryWrites=true&w=majority
+MONGODB_URL=mongodb+srv://kitty:cat@simplestep-cluster.fypyc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 {% endhighlight %}
 
 Now you can start the backend on port 3000.
