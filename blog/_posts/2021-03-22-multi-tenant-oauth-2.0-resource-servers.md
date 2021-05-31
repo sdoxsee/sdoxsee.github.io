@@ -64,7 +64,7 @@ APP_ISSUER_1_=https://yourprovider.com/tenant1 \
 mvn spring-boot:run
 {% endhighlight bash %}
 
-You should get a 401 at http://localhost:8080--indicating your API is secured.
+You should get a 401 at [http://localhost:8080](http://localhost:8080)--indicating your API is secured.
 
 ![401](/assets/images/multi-tenant-oauth-2.0-resource-servers/401.png)
 
