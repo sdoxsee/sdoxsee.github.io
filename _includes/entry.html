@@ -35,4 +35,8 @@
       {% if entry.date %}{% include entry-date.html %}{% endif %}
     </footer>
   {% endif %}
+
+  {% if forloop.index == 2 or forloop.index == 6 %}
+  {% include adsense.html %}
+  {% endif %}
 </article>
