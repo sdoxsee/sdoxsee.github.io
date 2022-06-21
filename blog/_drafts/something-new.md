@@ -20,6 +20,15 @@ Accelerate Book Review
 Talks I'm looking forward to at SP1 2019
 Sample Desktop PKCE app
 
+June 2022
+* reactive experience
+  * but i'm glad i did it as it's helped me think more about how i write on a servlet stack
+* why i dont' think of myself as a javascript expert
+* m1 apple silicon spring boot native image
+* spring boot pkce
+* azure app registrations
+* auth0
+
 1. note resource server
 - r2dbc h2
 basic keycloak
