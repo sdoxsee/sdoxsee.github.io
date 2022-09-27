@@ -32,6 +32,7 @@ google_fonts:
   - name: "Lora"
     weights: "400,400i,700,700i"
 google_analytics: UA-135067862-1 # Google Analytics id, e.g. "UA-NNNNNNNN-N"
+google_analytics_4: G-XT6JQSPDDT
 disqus:
   shortname: sdoxsee-github-io # Disqus shortname, e.g. "my_disqus_shortname"
 twitter:
